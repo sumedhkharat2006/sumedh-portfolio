@@ -1,7 +1,7 @@
 # CI/CD Guide: GitHub → GitHub Actions → Netlify
 
 This project deploys itself. Push code to GitHub, and it is checked, built and published to
-**https://sumedhkharat-portfolio.netlify.app** automatically.
+**https://portfolio-sumedh.netlify.app** automatically.
 
 ---
 
@@ -59,7 +59,7 @@ If Job 1 fails, **nothing is deployed** and the live site keeps working on the p
 | Secret | What it is |
 | --- | --- |
 | `NETLIFY_AUTH_TOKEN` | Lets GitHub Actions deploy to your Netlify account |
-| `NETLIFY_SITE_ID` | Which Netlify project to deploy to (`sumedhkharat-portfolio`) |
+| `NETLIFY_SITE_ID` | Which Netlify project to deploy to (`portfolio-sumedh`) |
 
 To see them, open the repo on GitHub, then go to **Settings → Secrets and variables → Actions**.
 
@@ -84,7 +84,7 @@ git commit -m "Try a new hero video"
 git push -u origin new-hero-video
 ```
 1. GitHub shows a **"Compare & pull request"** button. Click it, then click **Create pull request**.
-2. CI runs, and a bot comment appears with a **preview URL** such as `https://pr-1--sumedhkharat-portfolio.netlify.app`.
+2. CI runs, and a bot comment appears with a **preview URL** such as `https://pr-1--portfolio-sumedh.netlify.app`.
 3. If it looks good, click **Merge pull request**. That deploys it to production automatically.
 
 ### Re-run a deploy manually

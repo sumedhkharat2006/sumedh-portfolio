@@ -123,7 +123,7 @@ Then open **http://localhost:5173**.
 
 ## 6. Publish the website
 
-**Live site:** https://sumedhkharat-portfolio.netlify.app (Netlify project `sumedhkharat-portfolio`)
+**Live site:** https://portfolio-sumedh.netlify.app (Netlify project `portfolio-sumedh`)
 
 ### Update the live site after making changes
 1. One-time setup: `npm install -g netlify-cli`, then `netlify login`.

@@ -1,7 +1,7 @@
 # Sumedh — Cinematic Portfolio
 
 [![CI/CD](https://github.com/sumedhkharat2006/sumedh-portfolio/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/sumedhkharat2006/sumedh-portfolio/actions/workflows/ci-cd.yml)
-[![Live](https://img.shields.io/badge/live-sumedhkharat--portfolio.netlify.app-8b5cf6)](https://sumedhkharat-portfolio.netlify.app)
+[![Live](https://img.shields.io/badge/live-portfolio--sumedh.netlify.app-8b5cf6)](https://portfolio-sumedh.netlify.app)
 
 Pushing to `main` builds and deploys automatically (see [CI_CD_GUIDE.md](CI_CD_GUIDE.md)). Setup steps are in [SETUP_GUIDE.md](SETUP_GUIDE.md).
 

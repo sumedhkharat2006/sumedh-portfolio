@@ -93,7 +93,7 @@ jobs:
       cancel-in-progress: false
     environment:
       name: production
-      url: https://sumedhkharat-portfolio.netlify.app
+      url: https://portfolio-sumedh.netlify.app
     steps:
       - uses: actions/download-artifact@v8
         with:
