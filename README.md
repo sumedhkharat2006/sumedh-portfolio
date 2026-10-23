@@ -1,5 +1,10 @@
 # Sumedh — Cinematic Portfolio
 
+[![CI/CD](https://github.com/sumedhkharat2006/sumedh-portfolio/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/sumedhkharat2006/sumedh-portfolio/actions/workflows/ci-cd.yml)
+[![Live](https://img.shields.io/badge/live-sumedhkharat--portfolio.netlify.app-8b5cf6)](https://sumedhkharat-portfolio.netlify.app)
+
+Pushing to `main` builds and deploys automatically (see [CI_CD_GUIDE.md](CI_CD_GUIDE.md)). Setup steps are in [SETUP_GUIDE.md](SETUP_GUIDE.md).
+
 React + TypeScript + Vite + Tailwind CSS + GSAP (ScrollTrigger).
 
 **Quick start:** double-click `run.bat`. It installs packages on first run, starts the site and opens http://localhost:5173.

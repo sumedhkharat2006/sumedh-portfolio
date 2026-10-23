@@ -1,0 +1,110 @@
+name: CI/CD
+
+# CI  : every push and pull request is type-checked and built.
+# CD  : pushes to main deploy to production on Netlify;
+#       pull requests get their own preview URL (posted as a PR comment).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: 20
+  NETLIFY_CLI: netlify-cli@27.14.2
+
+jobs:
+  ci:
+    name: Type-check & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+  deploy-preview:
+    name: Deploy preview
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Deploy to Netlify (preview)
+        id: deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          PR_NUMBER: ${{ github.event.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }} # via env, never inlined into the script
+        run: |
+          npx --yes ${{ env.NETLIFY_CLI }} deploy --dir=dist --no-build \
+            --alias="pr-$PR_NUMBER" \
+            --message="PR #$PR_NUMBER: $PR_TITLE" \
+            --json > deploy.json
+          echo "url=$(jq -r '.deploy_url' deploy.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview URL on the PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `🎬 Preview deployed: ${{ steps.deploy.outputs.url }}`,
+            });
+
+  deploy-production:
+    name: Deploy production
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: ci
+    runs-on: ubuntu-latest
+    concurrency:
+      group: production
+      cancel-in-progress: false
+    environment:
+      name: production
+      url: https://sumedhkharat-portfolio.netlify.app
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Deploy to Netlify (production)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          COMMIT_MSG: ${{ github.event.head_commit.message || 'manual run' }}
+        run: |
+          npx --yes ${{ env.NETLIFY_CLI }} deploy --prod --dir=dist --no-build \
+            --message="${GITHUB_SHA::7}: ${COMMIT_MSG%%$'\n'*}"
