@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { background: #05050a; }
+body { @apply bg-ink font-body text-white antialiased; overflow-x: hidden; }
+html.lock-scroll, html.lock-scroll body { overflow: hidden; }
+
+/* Themed scrollbar: dark track, neon blue → violet thumb */
+/* Firefox only: in Chrome/Edge the standard properties would override the gradient below */
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-width: thin; scrollbar-color: #6d5cf6 #05050a; }
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #05050a; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4c7dff, #8b5cf6 60%, #67e8f9);
+  border: 3px solid #05050a; border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #67e8f9, #8b5cf6); border-width: 2px; }
+::-webkit-scrollbar-corner { background: #05050a; }
+::-webkit-scrollbar-button { display: none; }
+
+:focus-visible { outline: 2px solid #8b5cf6; outline-offset: 4px; border-radius: 4px; }
+
+@media (pointer: fine) {
+  body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor [data-cursor-label] { cursor: none; }
+}
+
+/* masked text reveal */
+.mask-line { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; }
+
+.text-outline { color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45); }
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Animated scene shown behind every video while it loads (and if it can't play) */
+.fallback-scene {
+  background:
+    radial-gradient(60% 50% at 20% 30%, rgba(76,125,255,.35), transparent 60%),
+    radial-gradient(50% 60% at 80% 70%, rgba(139,92,246,.38), transparent 60%),
+    radial-gradient(40% 40% at 50% 100%, rgba(103,232,249,.14), transparent 70%),
+    #05050a;
+  background-size: 180% 180%;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+@keyframes drift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+
+/* scroll cue */
+@keyframes scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+.scroll-cue { animation: scrollcue 1.8s cubic-bezier(.65,0,.35,1) infinite; }
+
+/* film grain */
+.grain {
+  position: fixed; inset: -50%; z-index: 55; pointer-events: none; opacity: .07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.8s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -2%); } 100% { transform: translate(0, 0); }
+}
+
+/* letterbox bars for the opening */
+.letterbox { position: fixed; left: 0; right: 0; height: 9vh; background: #000; z-index: 61; }
+
+.marquee { animation: marquee 45s linear infinite; }
+.marquee-reverse { animation-direction: reverse; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.spotlight { position: relative; }
+.spotlight::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(139,92,246,.2), transparent 45%);
+  opacity: 0; transition: opacity .3s;
+}
+.spotlight:hover::before { opacity: 1; }
+
+.journey-dot.is-active { background: #8b5cf6; box-shadow: 0 0 24px 4px rgba(139,92,246,.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
