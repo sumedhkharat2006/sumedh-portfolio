@@ -29,7 +29,7 @@ Without CI/CD you run `npm run build` and upload files by hand. With CI/CD you o
         │
         ├─ Job 1  "Type-check & build"   (CI, runs for every push and PR)
         │     1. checkout code
-        │     2. install Node 20 + npm ci
+        │     2. install Node 22 + npm ci
         │     3. npm run typecheck   ← fails the pipeline on TypeScript errors
         │     4. npm run build       ← fails the pipeline if the site can't build
         │     5. save dist/ as an artifact

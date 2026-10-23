@@ -14,17 +14,17 @@ permissions:
   contents: read
 
 env:
-  NODE_VERSION: 20
+  NODE_VERSION: 22
   NETLIFY_CLI: netlify-cli@27.14.2
 
 jobs:
   ci:
     name: Type-check & build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -39,7 +39,7 @@ jobs:
         run: npm run build
 
       - name: Upload build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist
@@ -49,11 +49,11 @@ jobs:
     name: Deploy preview
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     needs: ci
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
@@ -73,7 +73,7 @@ jobs:
           echo "url=$(jq -r '.deploy_url' deploy.json)" >> "$GITHUB_OUTPUT"
 
       - name: Comment preview URL on the PR
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.issues.createComment({
@@ -87,7 +87,7 @@ jobs:
     name: Deploy production
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: ci
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     concurrency:
       group: production
       cancel-in-progress: false
@@ -95,7 +95,7 @@ jobs:
       name: production
       url: https://sumedhkharat-portfolio.netlify.app
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
