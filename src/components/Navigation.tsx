@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger, prefersReducedMotion } from '../lib/gsap';
-import { nav } from '../data/content';
+import { nav, site } from '../data/content';
 import Magnetic from './Magnetic';
 
 export default function Navigation({ visible }: { visible: boolean }) {
@@ -67,8 +67,8 @@ export default function Navigation({ visible }: { visible: boolean }) {
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${show ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}>
         <nav aria-label="Primary" className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-10">
           <Magnetic>
-            <button onClick={() => go('home')} className="font-display text-2xl font-extrabold tracking-tight" aria-label="Back to home">
-              S<span className="text-neon-violet">.</span>
+            <button onClick={() => go('home')} className="font-display text-xl font-extrabold tracking-tight md:text-2xl" aria-label="Back to home">
+              {site.brand}<span className="text-neon-violet">.</span><span className="bg-gradient-to-r from-neon-blue via-neon-violet to-neon-cyan bg-clip-text text-transparent">Portfolio</span>
             </button>
           </Magnetic>
           <ul className="hidden items-center gap-8 md:flex">
@@ -85,6 +85,11 @@ export default function Navigation({ visible }: { visible: boolean }) {
               </li>
             ))}
           </ul>
+          {site.resume && (
+            <a href={site.resume} target="_blank" rel="noreferrer" className="hidden min-h-11 items-center rounded-full border border-white/20 bg-white/[0.05] px-5 font-mono text-[11px] tracking-[0.25em] backdrop-blur-md transition-colors hover:border-neon-cyan hover:text-neon-cyan md:inline-flex">
+              RESUME ↓
+            </a>
+          )}
           <button
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'}

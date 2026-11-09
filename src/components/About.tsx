@@ -5,6 +5,7 @@ import { focusAreas } from '../data/content';
 import BackgroundVideo from './BackgroundVideo';
 import { setSpotlight } from '../lib/spotlight';
 import RevealText from './RevealText';
+import TerminalCard from './TerminalCard';
 
 export default function About() {
   const root = useRef<HTMLElement>(null);
@@ -22,6 +23,8 @@ export default function About() {
     });
     gsap.from('.about-copy', { y: 40, opacity: 0, filter: 'blur(8px)', duration: 1.2, ease: 'power3.out',
       scrollTrigger: { trigger: '.about-copy', start: 'top 85%' } });
+    gsap.from('.term-line', { x: -16, opacity: 0, stagger: 0.18, duration: 0.6, ease: 'power2.out',
+      scrollTrigger: { trigger: '.terminal-card', start: 'top 85%' } });
     gsap.from('.about-card', { y: 60, opacity: 0, stagger: 0.12, duration: 1, ease: 'power3.out',
       scrollTrigger: { trigger: '.about-cards', start: 'top 80%' } });
   }, { scope: root });
@@ -46,6 +49,7 @@ export default function About() {
             SQL Server and MySQL underneath. I like the unglamorous parts that make software dependable:
             clean data, clear APIs, and automation that saves people hours.
           </p>
+          <TerminalCard className="about-copy mt-10 max-w-xl" />
         </div>
         <div className="about-cards grid gap-4 sm:grid-cols-2">
           {focusAreas.map((f, i) => (

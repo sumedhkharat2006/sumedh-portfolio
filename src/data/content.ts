@@ -1,6 +1,8 @@
 import { media, type VideoSource } from '../config/media';
 
 export const site = {
+  brand: 'Sumedh',          // logo reads "Sumedh.Portfolio"
+  fullName: 'Sumedh Kharat',
   name: 'SUMEDH',
   role: 'FULL STACK DEVELOPER',
   sub: 'SYSTEM BUILDER | PROBLEM SOLVER',
@@ -12,15 +14,35 @@ export const site = {
   greeting: 'Hi Sumedh, we are looking for a Full Stack Developer for our project and would like to discuss it with you. Please let us know a good time to connect.',
   emailSubject: 'Looking for a Full Stack Developer',
   github: 'https://github.com/sumedhkharat2006',
-  linkedin: '', // optional
+  linkedin: '', // optional, e.g. 'https://www.linkedin.com/in/your-handle'
+  // Put your PDF in /public (e.g. public/Sumedh-Kharat-Resume.pdf) and set the path here
+  // to show the "Resume" buttons. Left empty, the buttons stay hidden.
+  resume: '',
+  openTo: 'Open to full-time roles & freelance projects',
 };
+
+// Cycled by the typing line under the hero title
+export const roles = [
+  '.NET + Angular full stack developer',
+  'Enterprise application builder',
+  'Oracle & SQL Server data wrangler',
+  'Automation enthusiast',
+];
+
+// Shown in the terminal card in the About scene
+export const terminal = [
+  { cmd: 'whoami', out: 'sumedh-kharat · full stack developer' },
+  { cmd: 'stack --primary', out: 'C# · ASP.NET Web API · Angular · Oracle 19c' },
+  { cmd: 'ls ./shipped', out: 'taxone/  hrms/  soft-petal-boutique/' },
+  { cmd: 'status', out: 'open to jobs + freelance ✓' },
+];
 
 export const nav = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
-  { id: 'journey', label: 'Journey' },
+  { id: 'journey', label: 'Experience' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -45,7 +67,10 @@ export type Project = {
   title: string;
   kicker: string;
   summary: string;
-  details: string[];
+  problem: string;      // the business problem it solves
+  role: string;         // what I personally owned
+  details: string[];    // highlights
+  note?: string;        // e.g. confidentiality notice
   tech: string[];
   hue: number;          // drives the generated fallback visual
   video?: VideoSource;  // cinematic background loop (no client data)
@@ -57,6 +82,9 @@ export const projects: Project[] = [
   {
     id: 'taxone', index: '01', title: 'TAXONE', kicker: 'Enterprise Tax Compliance',
     summary: 'An enterprise tax compliance and TDS application that turns complex statutory rules into structured, auditable workflows.',
+    problem: 'Finance teams were handling TDS deductions, returns and statutory forms across spreadsheets and government portals: slow, repetitive and easy to get wrong at volume.',
+    role: 'Full stack developer at TGH Solution: backend APIs and Oracle data work, Angular screens, background jobs for bulk processing, and Selenium automation for portal workflows.',
+    note: 'Built for enterprise clients under confidentiality. Client names, data and screens are intentionally not shown.',
     details: [
       'TDS computation, deductee management and statutory form generation',
       'Background jobs for long-running filings and bulk processing',
@@ -70,6 +98,8 @@ export const projects: Project[] = [
   {
     id: 'hrms', index: '02', title: 'HRMS', kicker: 'Human Resource Management',
     summary: 'A human resource management system built on a clean, layered architecture for the everyday operations of people teams.',
+    problem: 'Attendance, leave and approvals lived in manual processes, so HR spent its time chasing paperwork instead of people.',
+    role: 'Full stack developer at TGH Solution: layered .NET 8 Web API, JWT role-based security, scheduled jobs, and the Angular front end.',
     details: [
       'Domain / Application / Infrastructure layering for maintainability',
       'JWT-secured, role-based access for HR, managers and staff',
@@ -83,6 +113,8 @@ export const projects: Project[] = [
   {
     id: 'boutique', index: '03', title: 'SOFT PETAL BOUTIQUE', kicker: 'E-commerce',
     summary: 'An e-commerce application for a boutique fashion store, from catalogue and wishlist to checkout and inventory.',
+    problem: 'A small boutique needed to sell online and manage stock and orders without paying for a heavyweight platform.',
+    role: 'Solo build, end to end: data model, ASP.NET MVC storefront, admin back office and responsive UI.',
     details: [
       'Product catalogue with categories and a shop storefront',
       'Wishlist, cart and order flow for customers',
@@ -96,13 +128,12 @@ export const projects: Project[] = [
   },
 ];
 
-// Add a `period` (e.g. '2024') to each chapter when ready.
-export const journey: { chapter: string; title: string; text: string; period?: string }[] = [
-  { chapter: 'Chapter 01', title: 'Foundations', text: 'Learned C#, .NET and relational databases, and started building with ASP.NET MVC.' },
-  { chapter: 'Chapter 02', title: 'Commerce', text: 'Shipped Soft Petal Boutique, a full e-commerce storefront with an admin back office.' },
-  { chapter: 'Chapter 03', title: 'Compliance at scale', text: 'Worked on TaxOne, an enterprise tax compliance and TDS application on Oracle 19c.' },
-  { chapter: 'Chapter 04', title: 'People systems', text: 'Built an HRMS on a layered .NET 8 + Angular architecture.' },
-  { chapter: 'Next', title: 'Builder mode', text: 'Deeper backend architecture, automation, and products of my own.' },
+// Experience timeline. Add a `period` (e.g. '2024 – Present') to each entry when ready.
+export const journey: { chapter: string; title: string; org?: string; text: string; period?: string }[] = [
+  { chapter: 'Internship', title: 'Developer Intern', text: 'First production code: learned C#, .NET and relational databases on real requirements, and built with ASP.NET MVC.' },
+  { chapter: 'Side build', title: 'Soft Petal Boutique', org: 'Personal project', text: 'Shipped a full e-commerce storefront with an admin back office on ASP.NET MVC and SQL Server.' },
+  { chapter: 'Experience', title: 'Full Stack Developer', org: 'TGH Solution', text: 'Building TaxOne, an enterprise tax compliance and TDS platform on Oracle 19c, and an HRMS on a layered .NET 8 + Angular architecture, with automation and background jobs.' },
+  { chapter: 'Next', title: 'Builder mode', text: 'Deeper backend architecture, automation, and freelance products for businesses that need software that just works.' },
 ];
 
 export const interests = [

@@ -91,7 +91,7 @@ export default function Projects() {
         <div className="shrink-0 lg:w-[38vw]">
           <p className="mb-6 font-mono text-[11px] tracking-[0.5em] text-neon-cyan/80">SCENE 03 — SELECTED WORK</p>
           <RevealText as="h2" split="chars" text="Systems, shipped." className="font-display text-5xl font-extrabold leading-[0.9] sm:text-6xl lg:text-[5vw]" />
-          <p className="mt-6 max-w-sm text-white/65">Three builds across compliance, people operations and commerce. Keep scrolling to move through them.</p>
+          <p className="mt-6 max-w-sm text-white/65">Case studies across compliance, people operations and commerce: the problem, my role and what shipped. Open any project for the full story.</p>
         </div>
 
         {projects.map((p) => (
@@ -119,7 +119,7 @@ export default function Projects() {
             </div>
 
             <div className="relative z-10 flex h-full flex-col justify-end p-6 md:p-10">
-              <span className="project-reveal font-mono text-xs tracking-[0.4em] text-white/70">{p.index} — {p.kicker.toUpperCase()}</span>
+              <span className="project-reveal font-mono text-xs tracking-[0.4em] text-white/70">{p.index} — {p.kicker.toUpperCase()}{p.note ? ' · CONFIDENTIAL CLIENT WORK' : ''}</span>
               <SplitText as="h3" text={p.title} className="project-title mt-3 font-display text-4xl sm:text-5xl font-extrabold leading-[0.9] md:text-[5.5vw]" />
               <p className="project-reveal mt-4 max-w-xl text-white/80">{p.summary}</p>
               <ul className="project-reveal mt-5 flex flex-wrap gap-2">

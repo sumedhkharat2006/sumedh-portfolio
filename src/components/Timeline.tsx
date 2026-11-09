@@ -27,8 +27,8 @@ export default function Timeline() {
   return (
     <section id="journey" ref={root} className="relative overflow-hidden py-32">
       <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-        <p className="mb-6 font-mono text-[11px] tracking-[0.5em] text-neon-cyan/80">THE JOURNEY</p>
-        <RevealText as="h2" split="chars" text="Chapters so far." className="font-display text-5xl sm:text-6xl font-extrabold leading-[0.9] md:text-8xl" />
+        <p className="mb-6 font-mono text-[11px] tracking-[0.5em] text-neon-cyan/80">THE JOURNEY SO FAR</p>
+        <RevealText as="h2" split="chars" text="Experience." className="font-display text-5xl sm:text-6xl font-extrabold leading-[0.9] md:text-8xl" />
 
         <div className="journey-list relative mt-20">
           <div className="absolute bottom-0 left-[11px] top-0 w-px bg-white/10 md:left-1/2" aria-hidden="true">
@@ -43,6 +43,7 @@ export default function Timeline() {
                     {j.chapter.toUpperCase()}{j.period ? ` · ${j.period}` : ''}
                   </p>
                   <h3 className="mt-2 font-display text-3xl font-bold md:text-4xl">{j.title}</h3>
+                  {j.org && <p className="mt-1 font-mono text-sm text-neon-cyan/85">@ {j.org}</p>}
                   <p className="mt-3 text-white/70">{j.text}</p>
                 </div>
               </li>

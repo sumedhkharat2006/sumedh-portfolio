@@ -52,6 +52,10 @@ html.lock-scroll, html.lock-scroll body { overflow: hidden; }
 }
 @keyframes drift { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
 
+/* typing caret */
+@keyframes caret { 50% { opacity: 0; } }
+.type-caret { animation: caret 1s steps(1) infinite; }
+
 /* scroll cue */
 @keyframes scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
 .scroll-cue { animation: scrollcue 1.8s cubic-bezier(.65,0,.35,1) infinite; }

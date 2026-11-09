@@ -21,6 +21,7 @@ export default function App() {
 
   return (
     <>
+      <a href="#about" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:text-ink">Skip to content</a>
       <div className="grain" aria-hidden="true" />
       <Cursor />
       <ScrollProgress />

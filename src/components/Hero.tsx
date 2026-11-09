@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from '../lib/gsap';
 import { media } from '../config/media';
-import { site } from '../data/content';
+import { roles, site } from '../data/content';
 import BackgroundVideo from './BackgroundVideo';
 import Particles from './Particles';
 import SplitText from './SplitText';
+import TypingRoles from './TypingRoles';
 
 export default function Hero({ onIntroComplete }: { onIntroComplete: () => void }) {
   const root = useRef<HTMLElement>(null);
@@ -51,6 +52,7 @@ export default function Hero({ onIntroComplete }: { onIntroComplete: () => void 
       .from('.hero-line', { scaleX: 0, duration: 1.4, ease: 'expo.inOut' }, 6)
       .from('.hero-role .char', { yPercent: 110, opacity: 0, duration: 1, stagger: 0.03 }, 6)
       .from('.hero-sub', { opacity: 0, y: 20, filter: 'blur(6px)', duration: 1.2 }, 6.8)
+      .from('.hero-typing', { opacity: 0, y: 12, duration: 1 }, 7.2)
       // 8–10s: tagline
       .from('.hero-tagline .word', { yPercent: 110, opacity: 0, filter: 'blur(8px)', duration: 1, stagger: 0.05 }, 8)
       .from('.hero-meta', { opacity: 0, y: 20, duration: 1, stagger: 0.1 }, 9);
@@ -84,8 +86,13 @@ export default function Hero({ onIntroComplete }: { onIntroComplete: () => void 
         <div className="hero-line mt-4 h-px w-40 bg-gradient-to-r from-transparent via-neon-violet to-transparent" />
         <SplitText as="p" text={site.role} className="hero-role mt-6 font-display text-lg tracking-[0.3em] md:text-3xl" />
         <p className="hero-sub mt-3 font-mono text-[11px] tracking-[0.35em] text-white/70 md:text-sm">{site.sub}</p>
-        <SplitText as="p" split="words" text={`“${site.tagline}”`} className="hero-tagline mt-10 max-w-2xl text-base leading-relaxed text-white/85 md:text-xl" />
-        <div className="hero-meta absolute bottom-10 flex flex-col items-center gap-3 font-mono text-[10px] tracking-[0.4em] text-white/60">
+        <TypingRoles roles={roles} className="hero-typing mt-5 min-h-[1.5em] font-mono text-sm text-white/90 md:text-base" />
+        <SplitText as="p" split="words" text={`“${site.tagline}”`} className="hero-tagline mt-8 max-w-2xl text-base leading-relaxed text-white/85 md:text-xl" />
+        <p className="hero-meta mt-6 inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-left font-mono text-[10px] tracking-[0.1em] sm:text-[11px] sm:tracking-[0.15em] text-white/80 backdrop-blur-md">
+          <span className="relative flex h-2 w-2 shrink-0"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" /></span>
+          {site.openTo}
+        </p>
+        <div className="hero-meta absolute bottom-10 flex flex-col [@media(max-height:780px)]:hidden items-center gap-3 font-mono text-[10px] tracking-[0.4em] text-white/60">
           SCROLL
           <span className="relative h-12 w-px overflow-hidden bg-white/15">
             <span className="scroll-cue absolute inset-x-0 top-0 h-1/2 bg-white" />

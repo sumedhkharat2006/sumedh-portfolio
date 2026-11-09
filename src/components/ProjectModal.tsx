@@ -63,7 +63,18 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr] md:px-12">
         <div>
           <p className="modal-reveal text-xl leading-relaxed text-white/85">{project.summary}</p>
-          <ul className="mt-8 space-y-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <div className="modal-reveal rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md">
+              <h3 className="font-mono text-[11px] tracking-[0.35em] text-neon-cyan/80">THE PROBLEM</h3>
+              <p className="mt-3 text-white/75">{project.problem}</p>
+            </div>
+            <div className="modal-reveal rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md">
+              <h3 className="font-mono text-[11px] tracking-[0.35em] text-neon-violet">MY ROLE</h3>
+              <p className="mt-3 text-white/75">{project.role}</p>
+            </div>
+          </div>
+          <h3 className="modal-reveal mt-10 font-mono text-[11px] tracking-[0.35em] text-white/55">HIGHLIGHTS</h3>
+          <ul className="mt-4 space-y-3">
             {project.details.map((d) => (
               <li key={d} className="modal-reveal flex gap-4 border-b border-white/10 pb-3 text-white/75">
                 <span className="text-neon-violet">✦</span>{d}
@@ -82,6 +93,11 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
             <a href={project.repo} target="_blank" rel="noreferrer" className="modal-reveal mt-8 inline-flex min-h-11 items-center rounded-full bg-white px-6 font-medium text-ink transition-colors hover:bg-neon-violet hover:text-white">
               View repository ↗
             </a>
+          )}
+          {project.note && (
+            <p className="modal-reveal mt-8 rounded-xl border border-amber-300/25 bg-amber-300/[0.06] p-4 text-sm leading-relaxed text-amber-100/85">
+              🔒 {project.note}
+            </p>
           )}
           <p className="modal-reveal mt-8 text-xs leading-relaxed text-white/45">
             Visuals are atmospheric stock footage. No client data or proprietary screens are shown.

@@ -27,7 +27,7 @@ export default function Contact() {
         <RevealText as="h2" split="chars" text="LET'S BUILD" className="font-display text-[min(15vw,11vh)] font-extrabold leading-[0.85] md:text-[min(8.5vw,12vh)]" />
         <RevealText as="p" split="chars" text="SOMETHING REAL." delay={0.2} className="text-outline font-display text-[min(8.5vw,8vh)] font-extrabold leading-[0.9] md:text-[min(6vw,9vh)]" />
         <div className="contact-ctas">
-          <p className="contact-cta mt-8 max-w-xl text-lg text-white/75">Start a conversation on WhatsApp or by email.</p>
+          <p className="contact-cta mt-8 max-w-xl text-lg text-white/75">Hiring for a .NET / Angular role, or need a business application built? Start a conversation on WhatsApp or by email.</p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <span className="contact-cta">
               <Magnetic>
@@ -58,6 +58,13 @@ export default function Contact() {
                 <a href={site.github} target="_blank" rel="noreferrer" className="inline-flex min-h-14 items-center rounded-full border border-white/20 px-7 transition-colors hover:border-white">GitHub ↗</a>
               </Magnetic>
             </span>
+            {site.resume && (
+              <span className="contact-cta">
+                <Magnetic>
+                  <a href={site.resume} target="_blank" rel="noreferrer" className="inline-flex min-h-14 items-center rounded-full border border-neon-cyan/40 px-7 text-neon-cyan transition-colors hover:border-neon-cyan hover:bg-neon-cyan hover:text-ink">Resume ↓</a>
+                </Magnetic>
+              </span>
+            )}
             {site.linkedin && (
               <span className="contact-cta">
                 <Magnetic>
@@ -80,7 +87,7 @@ export default function Contact() {
       </div>
 
       <footer className="relative z-10 mx-auto mt-16 flex w-full max-w-[1400px] flex-col gap-4 border-t border-white/10 pt-6 font-mono text-[11px] tracking-[0.3em] text-white/50 md:flex-row md:items-center md:justify-between">
-        <span>© {new Date().getFullYear()} SUMEDH — BUILT WITH REACT & GSAP · FOOTAGE: MIXKIT</span>
+        <span>© {new Date().getFullYear()} {site.brand.toUpperCase()}.PORTFOLIO — {site.fullName.toUpperCase()} · BUILT WITH REACT & GSAP · FOOTAGE: MIXKIT</span>
         <button onClick={() => window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })} className="min-h-11 text-left transition-colors hover:text-white">
           BACK TO TOP ↑
         </button>
